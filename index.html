@@ -158,6 +158,8 @@
     const a = document.createElement('a');
     a.className = 'card';
     a.href = `https://ulascombes.github.io/webgl_RetinoMaps/sub-${id}/170k`;
+    a.target = '_blank';
+    a.rel = 'noopener';
     a.innerHTML = `<span class="num">sub-${id}</span>`;
     grid.appendChild(a);
   }
