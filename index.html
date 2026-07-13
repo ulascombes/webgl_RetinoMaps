@@ -1,6 +1,167 @@
-<html><head>
-    <title>RetinoMaps dataset</title>
-  <body>
-    <p><strong>RetinoMaps</strong></p>
-    <p>sub-01 <a href="https://ulascombes.github.io/webgl_RetinoMaps/sub-01/170k">template-170k</a></p>
- 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>RetinoMaps dataset</title>
+<style>
+  :root{
+    --bg:#0b0d12;
+    --panel:#12151c;
+    --line:#22262f;
+    --text:#e7e9ee;
+    --muted:#8891a3;
+    --a1:#5ee6c8;
+    --a2:#c9a6ff;
+    --a3:#ffb15e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(94,230,200,.06), transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(201,166,255,.06), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Söhne','Inter',system-ui,-apple-system,sans-serif;
+    min-height:100vh;
+  }
+  header{
+    padding:64px 8vw 32px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono','SFMono-Regular',Menlo,monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--a1);
+    margin:0 0 14px;
+  }
+  h1{
+    margin:0;
+    font-size:clamp(32px,5vw,52px);
+    font-weight:600;
+    letter-spacing:-0.02em;
+    background:linear-gradient(90deg,var(--a1),var(--a2) 55%,var(--a3));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  p.desc{
+    max-width:640px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+    margin:18px 0 0;
+  }
+  main{
+    padding:48px 8vw 80px;
+  }
+  .meta{
+    display:flex;
+    gap:28px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:28px;
+    letter-spacing:.02em;
+  }
+  .meta strong{color:var(--text);font-weight:500;}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(108px,1fr));
+    gap:10px;
+  }
+  .card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:16px 14px;
+    height:96px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    text-decoration:none;
+    color:var(--text);
+    overflow:hidden;
+    transition:border-color .18s ease, transform .18s ease, background .18s ease;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:conic-gradient(from 0deg, var(--a1), var(--a2), var(--a3), var(--a1));
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .card::after{
+    content:"";
+    position:absolute;
+    inset:1px;
+    background:var(--panel);
+    border-radius:9px;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+  }
+  .card:hover::before{opacity:.55;}
+  .card:focus-visible{
+    outline:2px solid var(--a1);
+    outline-offset:2px;
+  }
+  .num{
+    position:relative;
+    z-index:1;
+    font-family:'JetBrains Mono',monospace;
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:-0.02em;
+  }
+  .tag{
+    position:relative;
+    z-index:1;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  footer{
+    padding:28px 8vw 56px;
+    border-top:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>RetinoMaps dataset</h1>
+  <p class="desc">Individual retinotopy and activation maps on the HCP 170k surface template. Select a subject to open its WebGL visualization.</p>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>ulascombes.github.io / webgl_RetinoMaps</footer>
+
+<script>
+  const missing = new Set([10,15,16,17,18,19]);
+  const grid = document.getElementById('grid');
+  for(let i=1;i<=25;i++){
+    if(missing.has(i)) continue;
+    const id = String(i).padStart(2,'0');
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = `https://ulascombes.github.io/webgl_RetinoMaps/sub-${id}/170k`;
+    a.innerHTML = `<span class="num">sub-${id}</span>`;
+    grid.appendChild(a);
+  }
+</script>
+
+</body>
+</html>
